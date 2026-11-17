@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, x;
+    cin >> n >> x;
+
+    vector<int> price(n), pages(n);
+    for (int &v : price) cin >> v;
+    for (int &v : pages) cin >> v;
+
+    vector<int> dp(x + 1, 0);
+    for (int i = 0; i < n; i++) {
+        for (int money = x; money >= price[i]; money--) {
+            dp[money] = max(dp[money], dp[money - price[i]] + pages[i]);
+        }
+    }
+
+    cout << dp[x] << '\n';
+    return 0;
+}
